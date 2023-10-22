@@ -1,0 +1,83 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  #root {
+    background: radial-gradient(
+      circle at 12% 3%,
+      rgb(235, 232, 255) 0%,
+      rgb(231, 226, 255) 100%
+    );
+    font-family: "Roboto", sans-serif !important;
+    min-height: 100vh;
+  }
+
+  .tw-button {
+    @apply tw-bg-contrast tw-border-contrast  tw-text-white hover:tw-bg-contrast-500 hover:tw-border-contrast-500 tw-border-2 tw-transition-all tw-py-3 tw-px-5 
+      tw-whitespace-nowrap tw-rounded-xl;
+  }
+
+  .tw-button-outlined {
+    @apply tw-text-contrast tw-border-contrast  hover:tw-bg-contrast hover:tw-text-white hover:tw-border-contrast tw-border-2 tw-transition-all tw-py-3 tw-px-5 
+      tw-whitespace-nowrap tw-rounded-xl;
+  }
+}
+
+.text-ds-white-sm {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.4))
+    drop-shadow(0 0 4px rgba(255, 255, 255, 0.6));
+}
+.text-ds-white-md {
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.5))
+    drop-shadow(0 0 14px rgba(255, 255, 255, 0.65));
+}
+.text-ds-white-lg {
+  filter: drop-shadow(0 0 1px rgba(255, 255, 255, 0.55))
+    drop-shadow(0 0 12px rgba(255, 255, 255, 0.65))
+    drop-shadow(0 0 35px rgba(255, 255, 255, 0.7));
+}
+.text-ds-white-xl {
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 35px rgba(255, 255, 255, 0.7))
+    drop-shadow(0 0 50px rgba(255, 255, 255, 0.7));
+}
+
+.text-ds-primary-sm {
+  filter: drop-shadow(0 0 1px rgba(238, 235, 255, 0.4))
+    drop-shadow(0 0 4px rgba(238, 235, 255, 0.6));
+}
+.text-ds-primary-md {
+  filter: drop-shadow(0 0 3px rgba(238, 235, 255, 0.5))
+    drop-shadow(0 0 14px rgba(238, 235, 255, 0.65));
+}
+.text-ds-primary-lg {
+  filter: drop-shadow(0 0 1px rgba(238, 235, 255, 0.55))
+    drop-shadow(0 0 12px rgba(238, 235, 255, 0.65))
+    drop-shadow(0 0 35px rgba(238, 235, 255, 0.7));
+}
+.text-ds-primary-xl {
+  filter: drop-shadow(0 0 10px rgba(238, 235, 255, 0.7))
+    drop-shadow(0 0 35px rgba(238, 235, 255, 0.7))
+    drop-shadow(0 0 50px rgba(238, 235, 255, 0.7));
+}
+
+.text-ds-contrast-sm {
+  filter: drop-shadow(0 0 1px rgba(1, 25, 54, 0.4))
+    drop-shadow(0 0 4px rgba(1, 25, 54, 0.6));
+}
+.text-ds-contrast-md {
+  filter: drop-shadow(0 0 3px rgba(1, 25, 54, 0.5))
+    drop-shadow(0 0 14px rgba(1, 25, 54, 0.65));
+}
+.text-ds-contrast-lg {
+  filter: drop-shadow(0 0 1px rgba(1, 25, 54, 0.55))
+    drop-shadow(0 0 12px rgba(1, 25, 54, 0.65))
+    drop-shadow(0 0 35px rgba(1, 25, 54, 0.7));
+}
+.text-ds-contrast-xl {
+  filter: drop-shadow(0 0 10px rgba(1, 25, 54, 0.7))
+    drop-shadow(0 0 35px rgba(1, 25, 54, 0.7))
+    drop-shadow(0 0 50px rgba(1, 25, 54, 0.7));
+}
