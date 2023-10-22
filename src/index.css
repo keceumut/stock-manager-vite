@@ -14,14 +14,30 @@
     min-height: 100vh;
   }
 
-  .tw-button {
-    @apply tw-bg-contrast tw-border-contrast  tw-text-white hover:tw-bg-contrast-500 hover:tw-border-contrast-500 tw-border-2 tw-transition-all tw-py-3 tw-px-5 
-      tw-whitespace-nowrap tw-rounded-xl;
+  .button {
+    @apply bg-contrast border-contrast  text-white hover:bg-contrast-500 hover:border-contrast-500 border-2 transition-all py-3 px-5 
+      whitespace-nowrap rounded-xl;
   }
 
-  .tw-button-outlined {
-    @apply tw-text-contrast tw-border-contrast  hover:tw-bg-contrast hover:tw-text-white hover:tw-border-contrast tw-border-2 tw-transition-all tw-py-3 tw-px-5 
-      tw-whitespace-nowrap tw-rounded-xl;
+  .button:disabled {
+    @apply bg-white border-contrast  text-white hover:bg-contrast-500 hover:border-contrast-500 border-2 transition-all py-3 px-5 
+      whitespace-nowrap rounded-xl;
+  }
+
+  .button-outlined {
+    @apply text-contrast border-contrast  hover:bg-contrast hover:text-white hover:border-contrast border-2 transition-all py-3 px-5 
+      whitespace-nowrap rounded-xl;
+  }
+
+  .input-group {
+    @apply flex flex-col mb-2;
+  }
+
+  .input-label {
+    @apply flex-1 font-bold;
+  }
+  .input {
+    @apply border-gray-700 border-2 px-4 py-2 rounded-md border-opacity-25 w-[100%];
   }
 }
 
