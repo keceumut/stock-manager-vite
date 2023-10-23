@@ -9,10 +9,10 @@ export default function Root() {
       <div className="">
         <div
           className={`flex justify-center ${
-            currentTheme === "dark" ? "bg-secondary-900" : "bg-primary"
+            currentTheme === "dark" ? "bg-secondary-900" : "bg-transparent"
           }`}
         >
-          <div className="w-full lg:w-[1024px] px-2 py-4 flex items-center justify-between text-xl ">
+          <div className="w-full lg:w-[1024px] px-2 py-6 flex items-center justify-between text-xl ">
             <Login />
             <a className="hover:text-secondary-600" href="/landing">
               Landing

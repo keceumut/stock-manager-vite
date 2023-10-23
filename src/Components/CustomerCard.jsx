@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import { getLatestSales } from "../Services/sales";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
+import SpinnerLarge from "./Spinner";
 
 const CustomerCard = ({ customer }) => {
   const {
@@ -19,55 +20,57 @@ const CustomerCard = ({ customer }) => {
   const tabOpen = tabHook[0];
 
   return (
-    <div
-      className="text-left sm:mt-4 lg:mt-8 rounded-md bg-primary-200 p-6 shadow-xl"
-      background={"blackAlpha.100"}
-      key={customer._id}
-      p={6}
-    >
-      <h1>
-        <span className="font-semibold">Firm Name:</span>{" "}
-        {customer.firmName || customer.name}
-      </h1>
-      <p>
-        <span className="font-semibold">Legal Name:</span> {customer.legalName}
-      </p>
-      <p>
-        <span className="font-semibold">Phone:</span> {customer.phone}
-      </p>
-      <p>
-        <span className="font-semibold">Email:</span> {customer.email}
-      </p>
-      <div className="my-2 border-b-2 border-gray-400/25"></div>
-      <p>
-        <span className="font-semibold">Discount:</span>{" "}
-        {customer.discount ? customer.discount : "N/A"}
-      </p>
-      <p>
-        <span className="font-semibold">Debt:</span>{" "}
-        {customer.debt ? customer.debt : "N/A"}
-      </p>
-      <div className="my-2 border-b-2 border-gray-400/25"></div>
-      <p className="font-semibold mb-2">Recent purchases:</p>
+    <div className="py-3 md:py-0 md:px-3 w-full md:w-6/12 lg:w-4/12  h-full min-w-fit">
       <div
-        name="purchases"
-        className="min-h-[285px] flex flex-col gap-3 justify-evenly"
+        className="text-left sm:mt-4 lg:mt-8 rounded-md bg-primary-200 p-4 shadow-xl min-h-[420px]"
+        key={customer._id}
+        
       >
-        {status === "success"
-          ? latestSales.map((purchase, index) => {
-              return (
-                <ExpandableField
-                  key={`expandableField${index}`}
-                  isActive={index === tabOpen}
-                  index={index}
-                  tabHook={tabHook}
-                  purchase={purchase}
-                />
-              );
-            })
-          : null}
+        <h1>
+          <span className="font-semibold">Firm Name:</span>{" "}
+          {customer.firmName || customer.name}
+        </h1>
+        <p>
+          <span className="font-semibold">Legal Name:</span> {customer.legalName}
+        </p>
+        <p>
+          <span className="font-semibold">Phone:</span> {customer.phone}
+        </p>
+        <p>
+          <span className="font-semibold">Email:</span> {customer.email}
+        </p>
+        <div className="my-2 border-b-2 border-gray-400/25"></div>
+        <p>
+          <span className="font-semibold">Discount:</span>{" "}
+          {customer.discount ? customer.discount : "N/A"}
+        </p>
+        <p>
+          <span className="font-semibold">Debt:</span>{" "}
+          {customer.debt ? customer.debt : "N/A"}
+        </p>
+        <div className="my-2 border-b-2 border-gray-400/25"></div>
+        <p className="font-semibold mb-2">Recent purchases:</p>
+        <div
+          name="purchases"
+          className="flex flex-col gap-3 justify-evenly"
+        >
+          {status === "success"
+            ? latestSales.map((purchase, index) => {
+                return (
+                  <ExpandableField
+                    key={`expandableField${index}`}
+                    isActive={index === tabOpen}
+                    index={index}
+                    tabHook={tabHook}
+                    purchase={purchase}
+                  />
+                );
+              })
+            : (<SpinnerLarge size={'sm'}/>)}
+        </div>
       </div>
     </div>
+    
   );
 };
 
@@ -110,7 +113,7 @@ const ExpandableField = ({ purchase, tabHook, index, isActive }) => {
             }}
             transition={{ duration: 0.8, ease: [0.04, 0.62, 0.23, 0.98] }}
           >
-            <div p={2} bg="transparent">
+            <div>
               <p>- prd-6666 x 1 </p>
               <p>- {date.toDateString()} </p>
               <p>- Sum: {purchase.totalSum} </p>

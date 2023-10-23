@@ -1,6 +1,8 @@
+import Tag from '../Components/Tag'
+import {BiChevronRight} from 'react-icons/bi'
 export default function ProductList({ productList }) {
   return (
-    <>
+    <div className="overflow-x-auto shadow-md sm:rounded-lg">
       <table>
         <thead>
           <tr>
@@ -13,24 +15,33 @@ export default function ProductList({ productList }) {
             <th>Details</th>
           </tr>
         </thead>
-      </table>
-      <tbody>
+        <tbody>
         {productList?.map((product) => {
           return (
             <tr key={product.productId}>
-              <td>{product.productId}</td>
-              <td>{product.name}</td>
-              <td>{product.tags}</td>
-              <td>{product.cost}</td>
+              <td className="whitespace-nowrap">{product.productId}</td>
+              <td >{product.name}</td>
+              <td>
+                <div className='flex gap-1 items-center'>
+                  {product.tags.length > 0 ? 
+                  product.tags.map((tag, index) => {
+                    return (<Tag key={index} tag={tag !== '' ? tag : null} type={'random'}/>)
+                  }) : (
+                    <button className='text-sm text-secondary-500/50 transition-colors hover:text-secondary-400'>+ Add tags</button>
+                  )}
+              </div>
+              </td>
+              <td>{product.cost ? product.cost : 'n/a'}</td>
               <td>{product.salePrice}</td>
               <td>{product.stock}</td>
-              <td>
-                <a href={`/products/${product.productId}`}>Details</a>
+              <td className='whitespace-nowrap text-contrast-700'>
+                <a href={`/products/${product.productId}`} className='hover:text-accent-500'>Details <BiChevronRight className='inline my-auto' size={16}/></a>
               </td>
             </tr>
           );
         })}
       </tbody>
-    </>
+      </table>
+    </div>
   );
 }
