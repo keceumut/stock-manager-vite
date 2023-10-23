@@ -12,11 +12,42 @@
     );
     font-family: "Roboto", sans-serif !important;
     min-height: 100vh;
+
+   
+  }
+
+  input{
+    @apply shadow-sm appearance-none w-full text-gray-700 focus:outline-2
+     focus:outline-offset-1 leading-tight focus:outline-none focus:outline-contrast border-gray-700 border-2 px-4 py-2 rounded-md border-opacity-25
+  }
+
+  table{
+    @apply border-collapse text-left mx-auto w-full
+  }
+
+  thead {
+    @apply text-xs uppercase border-b-2 border-contrast/20 
+  }
+
+  thead tr{
+    @apply text-xs uppercase bg-primary-300
+  }
+
+  tbody tr{
+    @apply  border-b-2 bg-primary border-contrast/20
+  }
+
+  tr:nth-child(even){
+    @apply bg-primary-200
+  }
+
+  th, td {
+    @apply px-6 py-4
   }
 
   .button {
     @apply bg-contrast border-contrast  text-white hover:bg-contrast-500 hover:border-contrast-500 border-2 transition-all py-3 px-5 
-      whitespace-nowrap rounded-xl;
+      whitespace-nowrap rounded-xl focus:outline-2 focus:outline-offset-1 focus:outline-none focus:outline-contrast;
   }
 
   .button:disabled {
@@ -29,15 +60,17 @@
       whitespace-nowrap rounded-xl;
   }
 
+  .button-secondary{
+    @apply text-white border-2 transition-all py-3 px-5 whitespace-nowrap rounded-xl focus:outline-2 
+    focus:outline-offset-1 focus:outline-none focus:outline-primary-900 bg-primary-300 hover:bg-accent-300 hover:text-white border-gray-500 border-opacity-25;
+  }
+
   .input-group {
     @apply flex flex-col mb-2;
   }
 
   .input-label {
-    @apply flex-1 font-bold;
-  }
-  .input {
-    @apply border-gray-700 border-2 px-4 py-2 rounded-md border-opacity-25 w-[100%];
+    @apply flex-1 font-bold mb-2;
   }
 }
 

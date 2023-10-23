@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-
+import {GrClose} from 'react-icons/gr'
 export default function AddProductForm({ onSubmit }) {
   const { register, unregister, handleSubmit, getValues, setValue } = useForm();
   const [fieldGroup, setFieldGroup] = useState([0]);
@@ -25,53 +25,57 @@ export default function AddProductForm({ onSubmit }) {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-4">
+      <p className="mb-3">Please enter new product information.</p>
       <div className="input-group">
         <label for="product-id" className="input-label">
           Product Id
         </label>
         <input
-          className="input"
+          className="input mb-3"
           id="product-id"
           placeholder="Product Id"
           {...register("productId")}
         ></input>
       </div>
       <div className="input-group">
-        <label className="input-label">Product Name</label>
+        <label for="product-name" className="input-label">Product Name</label>
         <input
-          className="input"
+          className="mb-3"
           id="product-name"
           placeholder="Product Name"
           {...register("name")}
         ></input>
       </div>
       <div className="input-group">
-        <label className="input-label">Tags</label>
+        <label for="tags" className="input-label">Tags</label>
 
         {fieldGroup.map((fieldItem, fieldIndex) => {
           return (
-            <div className="relative mb-3">
+            <div key={fieldIndex} className="relative mb-3 group">
               <input
-                className="input w-[90%] rounded-r-none"
+                className=" w-full"
+                id="tags"
                 placeholder="Tag"
                 {...register(`tags.${fieldIndex}`)}
               ></input>
               <button
-                className="absolute right-0 top-0 bg-primary-100 hover:bg-accent-300 w-[10%] transition-colors min-h-[100%] border-contrast-600 border-2 rounded-r-lg font-bold hover:text-primary-100"
+                className="absolute right-0 top-0 bg-primary-300 hover:bg-accent-300 w-[10%] transition-colors min-h-[100%] border-gray-700 border-2 border-opacity-25 rounded-r-lg font-bold hover:text-primary-100"
                 onClick={() => removeField(fieldIndex)}
               >
-                X
+                <GrClose className="mx-auto" />
               </button>
             </div>
           );
         })}
-        <button onClick={(e) => addField(e)} className="button">
+        <button onClick={(e) => addField(e)} className="button-secondary bg-primary-300 text-sm">
           Add New Tag
         </button>
       </div>
-      <button className="button text-sm" type="submit">
-        Add New Product
-      </button>
+      <div className="w-full flex justify-end mt-6">
+        <button className="button-secondary text-sm" type="submit">
+          Submit
+        </button>
+      </div>
     </form>
   );
 }

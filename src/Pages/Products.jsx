@@ -4,7 +4,7 @@ import ProductList from "../Components/ProductList";
 import { useParams } from "react-router-dom";
 import AddProduct from "../Components/AddProduct";
 import SpinnerLarge from "../Components/Spinner";
-
+import Tag from '../Components/Tag'
 export default function Products() {
   const {
     status,
@@ -40,13 +40,14 @@ export function ShowProduct() {
   if (status === "pending")
     return (
       <div>
-        <Spinner size={8} />
+        <SpinnerLarge size={8} />
       </div>
     );
   if (status === "error") return <h1>{JSON.stringify(error)}</h1>;
   return (
     <div>
       <a href="/products">{"<Back"}</a>
+      <div className="overflow-x-auto shadow-md sm:rounded-lg mt-6">
       <table>
         <tbody>
           <tr>
@@ -59,11 +60,18 @@ export function ShowProduct() {
           </tr>
           <tr>
             <th>Product Tags</th>
-            <td>{product.tags}</td>
+            <td><div className='flex gap-1 items-center'>
+                  {product.tags.length > 0 ? 
+                  product.tags.map((tag, index) => {
+                    return (<Tag key={index} tag={tag !== '' ? tag : null} type={'random'}/>)
+                  }) : (
+                    <button className='text-sm text-secondary-500/50 transition-colors hover:text-secondary-400'>+ Add tags</button>
+                  )}
+              </div></td>
           </tr>
           <tr>
             <th>Product Cost</th>
-            <td>{product.cost}</td>
+            <td>{product.cost ? product.cost : 'n/a'}</td>
           </tr>
           <tr>
             <th>Product Selling Price</th>
@@ -75,6 +83,8 @@ export function ShowProduct() {
           </tr>
         </tbody>
       </table>
+      </div>
+      
     </div>
   );
 }

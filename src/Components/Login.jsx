@@ -1,12 +1,19 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState, useRef } from "react";
 import { signIn, userAuthenticate } from "../Services/user";
 import { AppContext } from "../configs/AppContext";
 import LoginForm from "../assets/forms/loginForm";
+import {AnimatePresence} from 'framer-motion'
 
 export default function Login() {
-  const [isOpen, setIsOpen] = useState(false);
+  const isOpenHook = useState(false);
+  const [isOpen, setIsOpen] = isOpenHook
   const { jwtToken, setJwtToken } = useContext(AppContext);
+  
+  //Modal
+  const modalButtonRef = useRef()
+  const modalRef = useRef()
+
   const { status, error, mutate } = useMutation({
     mutationFn: userAuthenticate,
     onSuccess: (data) => {
@@ -20,20 +27,36 @@ export default function Login() {
 
   useEffect(() => {
     mutate(jwtToken);
+
+    let handler = (e) => {
+      if(!modalButtonRef.current.contains(e.target) && !modalRef.current.contains(e.target)){
+          setIsOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handler)
+    return () => document.removeEventListener("mousedown", handler);
   }, []);
 
+
+  const handleToggle = (e) => {
+    e.preventDefault();
+    setIsOpen((prevState) => !prevState);
+  };
   if (status === "pending") return "Login";
 
   return (
     <div className="relative z-10">
       {!jwtToken ? (
         <>
-          <button onClick={() => setIsOpen(!isOpen)}>Login</button>
-          {isOpen ? (
-            <div className="absolute">
-              <LoginModal setIsOpen={setIsOpen} />
-            </div>
-          ) : null}{" "}
+          <button ref={modalButtonRef} onClick={handleToggle}>Login</button>
+          <AnimatePresence>
+            {isOpen && (
+              <div ref={modalRef}>
+                <LoginModal modalButtonRef={modalButtonRef} setIsOpen={setIsOpen} />
+              </div>
+            )}{" "}
+          </AnimatePresence>
+          
         </>
       ) : (
         "Home"
@@ -42,7 +65,7 @@ export default function Login() {
   );
 }
 
-function LoginModal({ setIsOpen }) {
+function LoginModal({ setIsOpen, modalButtonRef }) {
   const queryClient = useQueryClient();
   const { setJwtToken } = useContext(AppContext);
   const { status, error, mutate } = useMutation({
@@ -58,5 +81,5 @@ function LoginModal({ setIsOpen }) {
     mutate(e);
     console.log(e);
   }
-  return <LoginForm onSubmit={handleLogin} />;
+  return <LoginForm modalButtonRef={modalButtonRef} onSubmit={handleLogin} setIsOpen={setIsOpen} />;
 }

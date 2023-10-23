@@ -12,7 +12,7 @@ export default function AddProduct() {
     mutationFn: addProduct,
     onSuccess: (newProduct) => {
       oldProducts.push(newProduct);
-      queryClient.setQueryData(["products"], oldProducts);
+      queryClient.invalidateQueries(["products"]);
       setOpen(false);
     },
   });
@@ -23,7 +23,7 @@ export default function AddProduct() {
   }
   return (
     <>
-      <button onClick={() => setOpen(true)}>Open Modal</button>
+      <button className="button-secondary mb-4" onClick={() => setOpen(true)}>+ New</button>
       <Modal open={open} setOpen={setOpen}>
         <AddProductForm onSubmit={onSubmit} />
       </Modal>
