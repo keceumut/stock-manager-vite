@@ -2,22 +2,24 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useContext, useEffect, useState, useRef } from "react";
 import { signIn, userAuthenticate } from "../Services/user";
 import { AppContext } from "../configs/AppContext";
-import LoginForm from "../assets/forms/loginForm";
-import {AnimatePresence} from 'framer-motion'
+import LoginForm from "../assets/forms/SignInForm";
+import { AnimatePresence } from "framer-motion";
 
 export default function Login() {
   const isOpenHook = useState(false);
-  const [isOpen, setIsOpen] = isOpenHook
+  const [isOpen, setIsOpen] = isOpenHook;
   const { jwtToken, setJwtToken } = useContext(AppContext);
-  
+
   //Modal
-  const modalButtonRef = useRef()
-  const modalRef = useRef()
+  const modalButtonRef = useRef();
+  const modalRef = useRef();
 
   const { status, error, mutate } = useMutation({
     mutationFn: userAuthenticate,
     onSuccess: (data) => {
-      console.log(data);
+      if (!data.authenticated) {
+        setJwtToken(null);
+      }
     },
     onError: (data) => {
       console.log(data);
@@ -29,14 +31,16 @@ export default function Login() {
     mutate(jwtToken);
 
     let handler = (e) => {
-      if(!modalButtonRef.current.contains(e.target) && !modalRef.current.contains(e.target)){
-          setIsOpen(false)
+      if (
+        !modalButtonRef.current?.contains(e.target) &&
+        !modalRef.current?.contains(e.target)
+      ) {
+        setIsOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handler)
+    };
+    document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
-
 
   const handleToggle = (e) => {
     e.preventDefault();
@@ -48,15 +52,19 @@ export default function Login() {
     <div className="relative z-10">
       {!jwtToken ? (
         <>
-          <button ref={modalButtonRef} onClick={handleToggle}>Login</button>
+          <button ref={modalButtonRef} onClick={handleToggle}>
+            Login
+          </button>
           <AnimatePresence>
             {isOpen && (
               <div ref={modalRef}>
-                <LoginModal modalButtonRef={modalButtonRef} setIsOpen={setIsOpen} />
+                <LoginModal
+                  modalButtonRef={modalButtonRef}
+                  setIsOpen={setIsOpen}
+                />
               </div>
             )}{" "}
           </AnimatePresence>
-          
         </>
       ) : (
         "Home"
@@ -81,5 +89,11 @@ function LoginModal({ setIsOpen, modalButtonRef }) {
     mutate(e);
     console.log(e);
   }
-  return <LoginForm modalButtonRef={modalButtonRef} onSubmit={handleLogin} setIsOpen={setIsOpen} />;
+  return (
+    <LoginForm
+      modalButtonRef={modalButtonRef}
+      onSubmit={handleLogin}
+      setIsOpen={setIsOpen}
+    />
+  );
 }

@@ -4,9 +4,11 @@ import { apiPrefix, axiosHeader } from "../configs/apiConfig";
 const headers = axiosHeader();
 
 export function getProducts(searchParams) {
-  return axios
+  console.log(searchParams);
+  const products = axios
     .get(`${apiPrefix}product/product`, { params: searchParams })
     .then((response) => response.data);
+  return products;
 }
 
 // productId = 'xyz-numbers'
