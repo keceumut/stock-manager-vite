@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Modal from "./Modal";
-import AddProductForm from "../assets/forms/addProductForm";
+import AddProductForm from "../assets/forms/NewProductForm";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { addProduct } from "../Services/products";
 
