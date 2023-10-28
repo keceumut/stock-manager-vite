@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getProducts } from "../Services/products";
 import { getCustomers } from "../Services/customers";
 import NewSalesForm from "../assets/forms/NewSalesForm";
+import { newSale } from "../Services/sales";
 
 export default function AddSale() {
   const [open, setOpen] = useState(false);
@@ -27,8 +28,17 @@ export default function AddSale() {
     queryFn: () => getProducts({}),
   });
 
+  const { status, error, mutate } = useMutation({
+    mutationFn: newSale,
+    onSuccess: (newSale) => {
+      queryClient.invalidateQueries(["sales"]);
+      setOpen(false);
+    },
+  });
+
   function onSubmit(e) {
     console.log(e);
+    mutate(e);
   }
 
   return (
