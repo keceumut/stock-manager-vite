@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 
-const Calendar = () => {
+const Calendar = ({ onChange }) => {
   const [selectedDate, setSelectedDate] = useState(null);
   const [currentMonth, setCurrentMonth] = useState(new Date());
   const [showCalendar, setShowCalendar] = useState(false);
@@ -21,30 +21,37 @@ const Calendar = () => {
   };
 
   const prevMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() - 1, 1)
+    );
   };
 
   const nextMonth = () => {
-    setCurrentMonth(new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1));
+    setCurrentMonth(
+      new Date(currentMonth.getFullYear(), currentMonth.getMonth() + 1, 1)
+    );
   };
-
 
   const renderDays = () => {
     const days = [];
     const firstDay = startOfMonth(currentMonth).getDay();
     const lastDay = endOfMonth(currentMonth).getDate();
-  
+
     for (let i = 1; i <= lastDay; i++) {
       const isSelected =
         selectedDate &&
         selectedDate.getDate() === i &&
         selectedDate.getMonth() === currentMonth.getMonth() &&
         selectedDate.getFullYear() === currentMonth.getFullYear();
-  
+
       days.push(
         <div
           key={i}
-          className={`calendar-day ${isSelected ? 'bg-contrast text-white hover:bg-contrast/80' : 'hover:bg-contrast/20'} 
+          className={`calendar-day ${
+            isSelected
+              ? "bg-contrast text-white hover:bg-contrast/80"
+              : "hover:bg-contrast/20"
+          } 
           text-center p-0.5 rounded-full transition-colors cursor-pointer `}
           onClick={() => selectDate(i)}
         >
@@ -52,35 +59,40 @@ const Calendar = () => {
         </div>
       );
     }
-  
+
     for (let i = 0; i < firstDay; i++) {
-      days.unshift(<div key={`empty-${i}`} className="calendar-day empty"></div>);
+      days.unshift(
+        <div key={`empty-${i}`} className="calendar-day empty"></div>
+      );
     }
-  
+
     return days;
   };
 
-  const toggleCalendar = () => {
+  const toggleCalendar = (e) => {
+    e.preventDefault();
     setShowCalendar(!showCalendar);
   };
 
   const selectDate = (day) => {
-    const selected = new Date(currentMonth.getFullYear(), currentMonth.getMonth(), day);
+    const selected = new Date(
+      currentMonth.getFullYear(),
+      currentMonth.getMonth(),
+      day
+    );
     setSelectedDate(selected);
+    onChange(selected);
     setShowCalendar(false);
   };
 
   return (
     <div className="relative ">
-       {selectedDate && (
+      {selectedDate && (
         <p className="mt-4 text-gray-800">
           Selected Date: {selectedDate.toLocaleDateString()}
         </p>
-      )} 
-      <button
-        onClick={toggleCalendar}
-        className="button"
-      >
+      )}
+      <button onClick={(e) => toggleCalendar(e)} className="button">
         Pick a Date
       </button>
       <AnimatePresence>
@@ -100,7 +112,10 @@ const Calendar = () => {
                 &lt;
               </button>
               <h2 className="text-lg font-semibold text-gray-800">
-                {currentMonth.toLocaleString('en-us', { month: 'long', year: 'numeric' })}
+                {currentMonth.toLocaleString("en-us", {
+                  month: "long",
+                  year: "numeric",
+                })}
               </h2>
               <button
                 className="text-gray-600 hover:text-gray-800"

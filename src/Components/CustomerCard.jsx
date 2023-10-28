@@ -4,6 +4,7 @@ import { getLatestSales } from "../Services/sales";
 import { useQuery } from "@tanstack/react-query";
 import { motion, AnimatePresence } from "framer-motion";
 import SpinnerLarge from "./Spinner";
+import AddPayment from "./AddPayment";
 
 const CustomerCard = ({ customer }) => {
   const {
@@ -24,14 +25,14 @@ const CustomerCard = ({ customer }) => {
       <div
         className="text-left sm:mt-4 lg:mt-8 rounded-md bg-primary-200 p-4 shadow-xl min-h-[420px]"
         key={customer._id}
-        
       >
         <h1>
           <span className="font-semibold">Firm Name:</span>{" "}
           {customer.firmName || customer.name}
         </h1>
         <p>
-          <span className="font-semibold">Legal Name:</span> {customer.legalName}
+          <span className="font-semibold">Legal Name:</span>{" "}
+          {customer.legalName}
         </p>
         <p>
           <span className="font-semibold">Phone:</span> {customer.phone}
@@ -50,27 +51,28 @@ const CustomerCard = ({ customer }) => {
         </p>
         <div className="my-2 border-b-2 border-gray-400/25"></div>
         <p className="font-semibold mb-2">Recent purchases:</p>
-        <div
-          name="purchases"
-          className="flex flex-col gap-3 justify-evenly"
-        >
-          {status === "success"
-            ? latestSales.map((purchase, index) => {
-                return (
-                  <ExpandableField
-                    key={`expandableField${index}`}
-                    isActive={index === tabOpen}
-                    index={index}
-                    tabHook={tabHook}
-                    purchase={purchase}
-                  />
-                );
-              })
-            : (<SpinnerLarge size={'sm'}/>)}
+        <div name="purchases" className="flex flex-col gap-3 justify-evenly">
+          {status === "success" ? (
+            latestSales.map((purchase, index) => {
+              return (
+                <ExpandableField
+                  key={`expandableField${index}`}
+                  isActive={index === tabOpen}
+                  index={index}
+                  tabHook={tabHook}
+                  purchase={purchase}
+                />
+              );
+            })
+          ) : (
+            <SpinnerLarge size={"sm"} />
+          )}
+        </div>
+        <div>
+          <AddPayment customer={customer} />
         </div>
       </div>
     </div>
-    
   );
 };
 

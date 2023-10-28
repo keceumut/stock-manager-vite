@@ -6,6 +6,7 @@ import { useState } from "react";
 import SpinnerLarge from "../Components/Spinner";
 import Search from "../Components/Search";
 import { useSearchParams } from "react-router-dom";
+import AddCustomer from "../Components/AddCustomer";
 
 export default function Customers() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -24,7 +25,10 @@ export default function Customers() {
   if (status === "error") return <h1>{JSON.stringify(error)}</h1>;
   return (
     <>
-      <Search />
+      <div className="mb-3">
+        <Search />
+      </div>
+      <AddCustomer />
       <div className="flex w-full flex-wrap">
         {customers.map((customer, customerIndex) => {
           return (
