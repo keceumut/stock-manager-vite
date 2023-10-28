@@ -1,5 +1,5 @@
 import React from "react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import Login from "../Components/Login";
 
 export default function Root() {
@@ -14,18 +14,18 @@ export default function Root() {
         >
           <div className="w-full lg:w-[1024px] px-2 py-6 flex items-center justify-between text-xl ">
             <Login />
-            <a className="hover:text-secondary-600" href="/landing">
+            <Link clLinkssNLinkme="hover:text-secondLinkry-600" to="/landing">
               Landing
-            </a>
-            <a className="hover:text-secondary-600" href="/products">
+            </Link>
+            <Link className="hover:text-secondary-600" to="/products">
               Products
-            </a>
-            <a className="hover:text-secondary-600" href="/customers">
+            </Link>
+            <Link className="hover:text-secondary-600" to="/customers">
               Customers
-            </a>
-            <a className="hover:text-secondary-600" href="/sales">
+            </Link>
+            <Link className="hover:text-secondary-600" to="/sales">
               Sales
-            </a>
+            </Link>
           </div>
         </div>
 

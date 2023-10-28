@@ -29,8 +29,9 @@ export function addProduct(product) {
 
 // receiptObject = {receiptNumber, receiptDate, items:[]}
 export function newPurchase(receiptObject) {
+  console.log(receiptObject);
   const data = axios
-    .post(`${apiPrefix}purchase/newpurcase`, receiptObject, { headers })
+    .post(`${apiPrefix}purchase/newpurchase`, receiptObject, { headers })
     .then((response) => response.data);
   return data;
 }

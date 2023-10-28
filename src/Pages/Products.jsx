@@ -6,6 +6,7 @@ import AddProduct from "../Components/AddProduct";
 import SpinnerLarge from "../Components/Spinner";
 import Tag from "../Components/Tag";
 import Search from "../Components/Search";
+import AddPurchase from "../Components/AddPurchase";
 export default function Products() {
   const [searchParams] = useSearchParams();
   const urlParam = searchParams.get("q");
@@ -26,6 +27,7 @@ export default function Products() {
           <Search />
         </div>
         <AddProduct />
+        <AddPurchase />
       </div>
       {status === "pending" ? (
         <SpinnerLarge />
@@ -78,6 +80,7 @@ export function ShowProduct() {
                           key={index}
                           tag={tag !== "" ? tag : null}
                           type={"random"}
+                          productPage={true}
                         />
                       );
                     })

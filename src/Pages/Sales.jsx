@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { getLatestSales, getSales } from "../Services/sales";
 import SpinnerLarge from "../Components/Spinner";
+import AddSale from "../Components/AddSale";
 
 export default function Sales() {
   const {
@@ -16,6 +17,7 @@ export default function Sales() {
   if (status === "error") return <h1>{JSON.stringify(error)}</h1>;
   return (
     <>
+      <AddSale />
       <div>Sales</div>
     </>
   );

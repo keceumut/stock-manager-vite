@@ -1,8 +1,6 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 
-const Tag = ({ tag, type, search }) => {
-  const queryClient = useQueryClient();
+const Tag = ({ tag, type, search, productPage }) => {
   if (tag == null) return null;
 
   const classNames = ["bg-secondary", "bg-accent", "bg-contrast"];
@@ -36,7 +34,7 @@ const Tag = ({ tag, type, search }) => {
       break;
   }
   return (
-    <Link to={`?q=${tag}`}>
+    <Link to={productPage ? `../products?q=${tag}` : `?q=${tag}`}>
       <div
         className={`${bgColor} rounded-full pointer-events-none text-white text-sm max-w-min px-3 py-1`}
       >

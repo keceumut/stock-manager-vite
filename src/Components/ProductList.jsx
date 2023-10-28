@@ -30,6 +30,7 @@ export default function ProductList({ productList }) {
                             key={index}
                             tag={tag !== "" ? tag : null}
                             type={"random"}
+                            productPage={false}
                           />
                         );
                       })
