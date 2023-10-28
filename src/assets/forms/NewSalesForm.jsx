@@ -1,20 +1,31 @@
 import { useForm } from "react-hook-form";
 import Calendar from "../../Components/Calendar";
 import SearchDropdown from "../../Components/SearchDropdown";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function NewSalesForm({ customerList, productList, onSubmit }) {
-  const { register, unregister, handleSubmit, getValues, setValue } = useForm();
+  const { register, unregister, handleSubmit, getValues, setValue, watch } =
+    useForm();
   const customerOptions = [];
   const productOptions = [];
   const [productInputs, setProductInputs] = useState([]);
-  const fieldGroup = [];
+  const [totalSum, setTotalSum] = useState(0);
+  const watchField = watch();
   productList?.forEach((item) => {
     productOptions.push({ value: item, label: item.name });
   });
   customerList?.forEach((item) => {
     customerOptions.push({ value: item, label: item.name || item.firmName });
   });
+
+  useEffect(() => {
+    let sum = 0;
+    watchField.items?.forEach((item) => {
+      sum += (item.amount * item.salePrice * (100 - watchField.discount)) / 100;
+    });
+    setTotalSum(sum);
+    setValue("totalSum", sum);
+  }, [watchField]);
   function handleCalendarChange(e) {
     setValue("receiptDate", e);
   }
@@ -35,12 +46,6 @@ export default function NewSalesForm({ customerList, productList, onSubmit }) {
     setProductInputs([...productInputs, productObj]);
   }
 
-  function handleCustomPrice(product, productIndex) {
-    setValue(
-      `items.${productIndex}.customerPrice`,
-      !getValues(`items.${productIndex}.customerPrice`)
-    );
-  }
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="mx-4">
       <p className="mb-3">Please enter payment information.</p>
@@ -112,7 +117,7 @@ export default function NewSalesForm({ customerList, productList, onSubmit }) {
             <td></td>
             <td></td>
             <td></td>
-            <td>5478</td>
+            <td>{totalSum}</td>
           </tr>
           <tr>
             <SearchDropdown
