@@ -9,6 +9,7 @@ import Landing from "./Pages/Landing";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppContext } from "./configs/AppContext";
 import { useState } from "react";
+import Main from "./Pages/Main";
 
 function App() {
   const [jwtToken, setJwtToken] = useState("empty");
@@ -31,6 +32,7 @@ function App() {
         { path: "/customers", element: <Customers /> },
         { path: "/sales", element: <Sales /> },
         { path: "/landing", element: <Landing /> },
+        { path: "/main", element: <Main /> },
       ],
     },
   ]);
